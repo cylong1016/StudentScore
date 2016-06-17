@@ -1,0 +1,10 @@
+不及格名单:
+学生:stu_0	课程:course_2		分数:53
+学生:stu_0	课程:course_4		分数:57
+学生:stu_1	课程:course_3		分数:53
+学生:stu_1	课程:course_5		分数:53
+学生:stu_3	课程:course_1		分数:56
+学生:stu_3	课程:course_5		分数:16
+学生:stu_7	课程:course_2		分数:32
+学生:stu_7	课程:course_4		分数:53
+学生:stu_8	课程:course_1		分数:16
