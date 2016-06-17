@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <stdlib.h>
 #include <string>
 #include <vector>
 using namespace std;
@@ -15,7 +16,7 @@ void splitString(const std::string& s, std::vector<std::string>& v, const std::s
     while(std::string::npos != pos2) {
         string substr = s.substr(pos1, pos2-pos1);
 
-        // 此 if 函数是为了防止分割出来的子字符串是空串
+        // 此 if 是为了防止分割出来的子字符串是空串
         if(substr.length() != 0) {
             v.push_back(substr);
         } // if end
@@ -43,26 +44,43 @@ vector<string>* readScore(const char* filename) {
     return scoreList;
 }
 
-void avg(vector<string>* scoreList, const char* outfilename) {
-    ofstream outfile;
+void avg(const vector<string>* scoreList, const char* outfilename) {
+    string scoreArr[11][6];
+    ofstream out;
     // ios::trunc表示在打开文件前将文件清空,由于是写入,文件不存在则
-    outfile.open(outfilename, ios::trunc);
+    out.open(outfilename, ios::trunc);
+
+    string courseNameStr = scoreList->at(0);
+    vector<string> courseName;
+    splitString(courseNameStr, courseName, " ");
+    for(int i = 0; i < courseName.size(); i++) {
+        scoreArr[0][i] = courseName.at(i);
+        cout << courseName.at(i) << endl;
+    }
+
+    out << "学生平均分:" << endl;
     for(int i = 1; i < scoreList->size(); i++) {
         string scoreStr = scoreList->at(i);
-        vector<string> scores;
-        splitString(scoreStr, scores, " ");
-        cout << scores.size() << endl;
-        for (auto score : scores) {
-            cout << score << endl;
+        vector<string> stuScore;
+        splitString(scoreStr, stuScore, " ");
+        string stuName = stuScore.at(0);
+        double avg = 0.0;
+        for (int j = 1; j < stuScore.size(); j++) {
+            string score_s = stuScore.at(j);
+            double score_d = atof(score_s.c_str());
+            avg = (avg * (j - 1) + score_d) / j;
         }
+        out << "学生:" << stuName << " " << "平均分:" << avg << endl;
     }
+
+    cout << "成功导出到 avg.txt" << endl;
 }
 
 int main(int argc, char* argv[]) {
     vector<string>* scoreList = readScore("x.txt");
     avg(scoreList, "avg.txt");
     // cout << scoreList->size() << endl;
-    for (auto line : *scoreList) {
+    // for (auto line : *scoreList) {
         // cout << line << endl;
-    }
+    // }
 }
