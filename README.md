@@ -6,5 +6,6 @@
 4. 要求建立主菜单，调用上述功能
 
 编译说明:
+
 1. 编译： g++ statistic.cpp -o statistic -std=c++11
 2. 执行： ./statistic
